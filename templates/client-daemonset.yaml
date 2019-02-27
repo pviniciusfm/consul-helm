@@ -66,6 +66,12 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
+            {{- if .Values.client.extraEnvironmentVars }}
+            {{- range $key, $value := .Values.client.extraEnvironmentVars }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+            {{- end }}
           command:
             - "/bin/sh"
             - "-ec"
